@@ -14,10 +14,6 @@ namespace UpCodeMigration.Source_codes
     ///<remarks></remarks>
     public static class  FileLoad{
 
-        //#########################################################################
-        //#########################################################################
-        //#########################################################################
-
         ///<summary>Function to load input files</summary>
         ///<returns> True if the files are loaded correctly. False if not</returns>
         ///<remarks></remarks>
