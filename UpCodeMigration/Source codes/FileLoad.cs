@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UpCodeMigration.Source_codes;
+using System.IO;
 
 using System.Data;
 using System.Data.OleDb;
@@ -14,16 +15,65 @@ namespace UpCodeMigration.Source_codes
     ///<remarks></remarks>
     public static class  FileLoad{
 
+
+        ///<summary>Function to load train details file</summary>
+        ///<returns> True if the file is loaded correctly. False if not</returns>
+        ///<remarks></remarks>
+        public static bool loadTrainData()
+        {
+            GlobalVariables.TRAIN_DATA = File.ReadAllLines(GlobalVariables.BASE_FOLDER_PATH + GlobalVariables.CAD_FILENAME)
+                                           .Select(v => TrainData.FromCsv(v))
+                                           .ToList();
+
+            if (GlobalVariables.TRAIN_DATA.Count > 0) { return true; }
+            else                                      { return false;}
+        }
+
+
+
+        ///<summary>Function to load project details file</summary>
+        ///<returns> True if the file is loaded correctly. False if not</returns>
+        ///<remarks></remarks>
+        public static bool loadProjectData()
+        {
+            GlobalVariables.PROJECT_DATA = File.ReadAllLines(GlobalVariables.BASE_FOLDER_PATH + GlobalVariables.PROJECTS_FILENAME)
+                                           .Skip(1)
+                                           .Select(v => ProjectData.FromCsv(v))
+                                           .ToList();
+
+            if (GlobalVariables.PROJECT_DATA.Count > 0) { return true; }
+            else { return false; }
+
+        }
+
+
+
+        ///<summary>Function to load untouchable trains details file</summary>
+        ///<returns> True if the file is loaded correctly. False if not</returns>
+        ///<remarks></remarks>
+        public static bool loadUntTrainData()
+        {
+            GlobalVariables.UNT_TRAIN_DATA = File.ReadAllLines(GlobalVariables.BASE_FOLDER_PATH + GlobalVariables.UNTOUCHABLES_FILENAME)
+                                           .Select(v => UntTrainData.FromCsv(v))
+                                           .ToList();
+
+            if (GlobalVariables.UNT_TRAIN_DATA.Count > 0) { return true; }
+            else { return false; }
+
+        }
+
+
+
         ///<summary>Function to load input files</summary>
         ///<returns> True if the files are loaded correctly. False if not</returns>
         ///<remarks></remarks>
         public static bool loadInputFiles() {
 
             ///<summary>Load projects.csv file</summary>
-            GlobalVariables.PROJECTS_TABLE  = CommonUtilityFunctions.GetDataTableFromCsv(GlobalVariables.BASE_FOLDER_PATH + GlobalVariables.PROJECS_FILENAME, true);
+            GlobalVariables.PROJECTS_TABLE  = CommonUtilityFunctions.GetDataTableFromCsv(GlobalVariables.BASE_FOLDER_PATH + GlobalVariables.PROJECTS_FILENAME, true);
 
             ///<summary>Load CAD.csv file</summary>
-            GlobalVariables.CAD_TABLE = CommonUtilityFunctions.GetDataTableFromCsv(GlobalVariables.BASE_FOLDER_PATH + GlobalVariables.PROJECS_FILENAME, false);
+            GlobalVariables.CAD_TABLE = CommonUtilityFunctions.GetDataTableFromCsv(GlobalVariables.BASE_FOLDER_PATH + GlobalVariables.PROJECTS_FILENAME, false);
 
             ///<summary>Load untouchables.csv file</summary>
             GlobalVariables.UNTOUCHABLES_TABLE = CommonUtilityFunctions.GetDataTableFromCsv(GlobalVariables.BASE_FOLDER_PATH + GlobalVariables.UNTOUCHABLES_FILENAME, false);
@@ -42,41 +92,6 @@ namespace UpCodeMigration.Source_codes
             }
         }
 
-        ///<summary>Function to compute arrival times of normal and untouchable trains</summary>
-        ///<param name="untouchables_table"></param>
-        ///<param name="projects_table"></param>
-        ///<param name="cad_table"></param>
-        ///<returns>Prints the given string</returns>
-        ///<remarks></remarks>
-        public static void computeArrivalTimes(DataTable untouchables_table, DataTable projects_table, DataTable cad_table)
-        {
-            ////String[] unt_train_arrivals= { };
-
-            //List<List<string,List<int,<double>>>> unt_train_arrivals = new List<List<int>>();
-
-            DataTable subdivisions = projects_table.DefaultView.ToTable(false, "Subdivision", "Control point", "Capacity");
-
-            System.Diagnostics.Debug.WriteLine(subdivisions.Rows[1][2]);
-
-            String[] controlPoints = projects_table.AsEnumerable().Select(r => r.Field<string>("Control point")).ToArray();
-
-            System.Diagnostics.Debug.WriteLine(controlPoints[0]);
-
-            //foreach(DataRow row in cad_table.Rows)
-            //{
-            //    String cp = row[0].ToString().Trim();
-            //    if (!controlPoints.Contains(cp))
-            //        continue;
-            //    if (!unt_train_arrivals.Contains(cp))
-            //    {
-            //        unt_train_arrivals[cp] = 
-            //    }
-
-            //DataView subdivisions_raw = new System.Data.DataView(projects_table);
-
-            ////DataTable subdivisions = subdivisions_raw.ToTable("Selected", false, "Subdivision", "Control point", "Capacity");
-            //String[] controlPoints = 
-
-        }
+        
     }
 }

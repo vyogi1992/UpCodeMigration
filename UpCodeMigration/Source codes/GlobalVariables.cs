@@ -16,9 +16,13 @@ namespace UpCodeMigration.Source_codes
         public static String BASE_FOLDER_PATH = "C:/Users/Yogeswaran V/Desktop/UP/C#/Input files/";
 
         ///<summary>Declare input file names</summary>
-        public static String PROJECS_FILENAME = "projects.csv";
+        public static String PROJECTS_FILENAME = "projects.csv";
         public static String UNTOUCHABLES_FILENAME = "untouchables.csv";
         public static String CAD_FILENAME = "CAD.csv";
+
+        public static List<TrainData> TRAIN_DATA;
+        public static List<ProjectData> PROJECT_DATA;
+        public static List<UntTrainData> UNT_TRAIN_DATA;
 
         ///<summary>Declare data tables for 3 input files</summary>
         public static DataTable PROJECTS_TABLE = null;

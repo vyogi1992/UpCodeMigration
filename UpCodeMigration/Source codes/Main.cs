@@ -18,13 +18,23 @@ namespace UpCodeMigration
         public static void Main(string[] args)
         {
             ///<summary>Load input files</summary>
-            if (FileLoad.loadInputFiles()) { CommonUtilityFunctions.print("FILE LOAD COMPLETE"); }
-            else { CommonUtilityFunctions.print("FILE LOAD FAILED"); }
+            //if (FileLoad.loadInputFiles()) { CommonUtilityFunctions.print("FILE LOAD COMPLETE"); }
+            //else { CommonUtilityFunctions.print("FILE LOAD FAILED"); }
 
-            FileLoad.computeArrivalTimes(GlobalVariables.UNTOUCHABLES_TABLE, GlobalVariables.PROJECTS_TABLE,GlobalVariables.CAD_TABLE);
+            FileLoad.loadTrainData();
+            FileLoad.loadProjectData();
+            FileLoad.loadUntTrainData();
+
+            ArrivalTimeComputation.computeArrivalTimes();
+
+            CommonUtilityFunctions.print(GlobalVariables.PROJECT_DATA.Count);
+            CommonUtilityFunctions.print(GlobalVariables.TRAIN_DATA[0].timeStamp.ToString());
+            CommonUtilityFunctions.print(GlobalVariables.UNT_TRAIN_DATA[0].symbols.ToString());
 
 
 
+            //FileLoad.computeArrivalTimes(GlobalVariables.UNTOUCHABLES_TABLE, GlobalVariables.PROJECTS_TABLE,GlobalVariables.CAD_TABLE);
+            
         }
     }
 }

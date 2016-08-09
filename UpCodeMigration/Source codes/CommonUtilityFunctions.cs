@@ -16,6 +16,13 @@ namespace UpCodeMigration.Source_codes
     public static class CommonUtilityFunctions
     {
 
+        //public static List<object> getAttribute(List<object> obj,  String attName)
+        //{
+        //    obj.Select(l => l.attName).ToList();
+
+        //    return List < String >{ };
+        //}
+        
         ///<summary>Utility function to print a given string in debug console</summary>
         ///<param name="stringValue">The STRING value to be printed</param>
         ///<returns>Prints the given string</returns>
